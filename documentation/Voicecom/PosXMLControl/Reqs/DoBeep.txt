@@ -1,0 +1,13 @@
+<DoBeepRequest>
+	<Frequency1>2000</Frequency1>
+	<Duration1>40</Duration1>
+	<Interval1>10</Interval1>
+	<Frequency2>3000</Frequency2>
+	<Duration2>40</Duration2>
+	<Interval2>10</Interval2>
+	<Frequency3>4000</Frequency3>
+	<Duration3>40</Duration3>
+	<Interval3>10</Interval3>
+	<Repeat>2</Repeat>
+	<RepeatInt>100</RepeatInt>
+</DoBeepRequest>

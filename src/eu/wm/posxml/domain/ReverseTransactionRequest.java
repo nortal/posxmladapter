@@ -5,17 +5,15 @@ package eu.wm.posxml.domain;
  */
 public class ReverseTransactionRequest extends RefundTransactionRequest {
 
-  private static final String[] fieldOrder = new String[] { "transactionID", "transactionSTAN", "reverseAmount",
-                                                           "currencyName", "partialReversal", "lastFourDigits",
-                                                           "forcedAction", "printReceipt", "returnReceipts" };
   /**
    * @see eu.wm.posxml.domain.RefundTransactionRequest#getFieldOrder()
    */
   @Override
   public String[] getFieldOrder() {
-    return fieldOrder;
+    return new String[] { "transactionID", "transactionSTAN", "reverseAmount", "currencyName", "partialReversal",
+                         "lastFourDigits", "forcedAction", "printReceipt", "returnReceipts" };
   }
-  
+
   @PosXMLField(length = 12)
   private Integer reverseAmount;
   @PosXMLField(length = 3)

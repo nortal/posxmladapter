@@ -7,18 +7,15 @@ package eu.wm.posxml.domain;
  */
 public class TerminalData implements PosXMLDomainObject {
 
-  private static final String[] fieldOrder = new String[] { "id", "serNo", "name", "address", "merchantRegNo",
-                                                           "payDesk", "verificationResult", "applicationCryptogramm",
-                                                           "cid", "tsi", "cvmr", "iad", "upn", "atc", "aip", "tt",
-                                                           "printerStatus" };
-
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
   public String[] getFieldOrder() {
-    return fieldOrder;
+    return new String[] { "id", "serNo", "name", "address", "merchantRegNo", "payDesk", "verificationResult",
+                         "applicationCryptogramm", "cid", "tsi", "cvmr", "iad", "upn", "atc", "aip", "tt",
+                         "printerStatus" };
   }
-  
+
   @PosXMLField(mandatory = true, length = 8, name = "ID")
   private String id;
   @PosXMLField(mandatory = true, length = 16)

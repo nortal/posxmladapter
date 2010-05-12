@@ -4,6 +4,7 @@ import eu.wm.posxml.domain.PosXMLDomainObject;
 import eu.wm.posxml.domain.PosXMLField;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,16 +17,21 @@ import org.apache.log4j.Logger;
  * 
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
-public class DomainObjectHelper {
+public final class DomainObjectHelper {
 
+  private DomainObjectHelper() {
+    // to avoid instance init
+  }
+  
   private static final Logger LOGGER = Logger.getLogger(DomainObjectHelper.class);
   
-  private static final Set<Class<?>> allowedTypes = new HashSet<Class<?>>();
+  private static final Set<Class<?>> ALLOWED_TYPES = new HashSet<Class<?>>();
   
   static {
-    allowedTypes.add(String.class);
-    allowedTypes.add(Integer.class);
-    allowedTypes.add(Date.class);
+    ALLOWED_TYPES.add(String.class);
+    ALLOWED_TYPES.add(Integer.class);
+    ALLOWED_TYPES.add(Date.class);
+    ALLOWED_TYPES.add(BigDecimal.class);
   }
 
   /**
@@ -56,10 +62,13 @@ public class DomainObjectHelper {
    */
   @SuppressWarnings("unchecked")
   public static PosXMLField getField(Class<? extends PosXMLDomainObject> clazz, String name) {
+    if(clazz == null || name == null) {
+      return null;
+    }
     try {
       return clazz.getDeclaredField(name).getAnnotation(PosXMLField.class);
     } catch (SecurityException e) {
-      return null;
+      throw new IllegalStateException("Error accessing class field: " + clazz.getName() + "." + name);
     } catch (NoSuchFieldException e) {
       Class<?> superClass = clazz.getSuperclass();
       if(isDomainObject(superClass)) {
@@ -76,7 +85,7 @@ public class DomainObjectHelper {
     if(clazz == null) {
       return false;
     }
-    return isDomainObject(clazz) || DomainObjectHelper.allowedTypes.contains(clazz);
+    return isDomainObject(clazz) || DomainObjectHelper.ALLOWED_TYPES.contains(clazz);
   }
 
   /**
@@ -91,22 +100,24 @@ public class DomainObjectHelper {
    * @return Returns field value or null, if retrieving the value fails.
    */
   public static Object getFieldValue(Object object, String fieldName) {
+    if(object == null || fieldName == null) {
+      return null;
+    }
     PropertyDescriptor descriptor;
     try {
       descriptor = PropertyUtils.getPropertyDescriptor(object, fieldName);
     } catch (Exception e) {
-      LOGGER.debug("Field " + fieldName + " not found!", e);
       return null;
     }
-    
+    if(descriptor == null) {
+      return null;
+    }
     if(!typeAllowed(descriptor.getPropertyType())) {
-      LOGGER.debug("Field " + fieldName + " " + descriptor.getPropertyType()+ " is not supported!");
       return null;
     }
     
     Method readMethod = descriptor.getReadMethod();
     if(readMethod == null) {
-      LOGGER.debug("Field " + fieldName + " has no read method!");
       return null;
     }
 

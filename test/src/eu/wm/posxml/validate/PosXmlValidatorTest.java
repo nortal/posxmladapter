@@ -4,7 +4,6 @@ import eu.wm.posxml.domain.Card;
 import eu.wm.posxml.domain.CardData;
 import eu.wm.posxml.domain.PosXMLDomainObject;
 import eu.wm.posxml.domain.TransactionResponse;
-import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,7 +15,7 @@ import org.junit.Test;
 public class PosXmlValidatorTest {
 
   @Test
-  public void testSimple() {
+  public void validateSimple() {
     String validationResult = PosXmlValidator.validate((PosXMLDomainObject)null);
     Assert.assertEquals("Validation failed: object is null!", validationResult);
     Card card = new Card();
@@ -28,14 +27,14 @@ public class PosXmlValidatorTest {
     
     // make object valid
     card.setCardName("Card name exactly 40 symbols____________");
-    card.setExpires(new Date());
+    card.setExpires("01/70");
     card.setPan("p");
     card.setServiceCode(999);
     Assert.assertNull(PosXmlValidator.validate(card));
   }
   
   @Test
-  public void testComplex() {
+  public void validateComplex() {
     TransactionResponse transactionResponse = new TransactionResponse();
     CardData cardData = new CardData();
     cardData.setPhysicalType(10);

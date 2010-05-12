@@ -1,7 +1,5 @@
 package eu.wm.posxml.domain;
 
-import java.util.Date;
-
 /**
  * TransactionMagStripeRequest XML element
  * 
@@ -9,24 +7,21 @@ import java.util.Date;
  */
 public class TransactionMagStripeRequest extends AbstractTransactionRequest {
 
-  private static final String[] fieldOrder = new String[] { "pan", "expires", "serviceCode", "amount", "currencyName",
-                                                           "transactionID", "preAuthorisation", "attendantID",
-                                                           "printReceipt", "returnReceipts", "cardPresent",
-                                                           "cardholderPresent" };
-
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
   public String[] getFieldOrder() {
-    return fieldOrder;
+    return new String[] { "pan", "expires", "serviceCode", "amount", "currencyName", "transactionID",
+                         "preAuthorisation", "attendantID", "printReceipt", "returnReceipts", "cardPresent",
+                         "cardholderPresent" };
   }
 
   @PosXMLField(length = 20, mandatory = true)
-  protected String pan;
-  @PosXMLField(mandatory = true, pattern = "MM/yy")
-  protected Date expires;
+  private String pan;
+  @PosXMLField(mandatory = true, length = 5)
+  private String expires;
   @PosXMLField(length = 3, mandatory = true)
-  protected Integer serviceCode;
+  private Integer serviceCode;
 
   public String getPan() {
     return pan;
@@ -36,11 +31,11 @@ public class TransactionMagStripeRequest extends AbstractTransactionRequest {
     this.pan = pan;
   }
 
-  public Date getExpires() {
+  public String getExpires() {
     return expires;
   }
 
-  public void setExpires(Date expires) {
+  public void setExpires(String expires) {
     this.expires = expires;
   }
 

@@ -7,15 +7,12 @@ package eu.wm.posxml.domain;
  */
 public class RefundTransactionResponse extends TransactionResponse {
 
-  private static final String[] fieldOrder = new String[] { "returnCode", "transactionData", "cardData",
-                                                           "terminalData", "additionalInfo", "reason", "merchReceipt",
-                                                           "custReceipt" };
-
   /**
    * @see eu.wm.posxml.domain.TransactionResponse#getFieldOrder()
    */
   @Override
   public String[] getFieldOrder() {
-    return fieldOrder;
+    return new String[] { "returnCode", "transactionData", "cardData", "terminalData", "additionalInfo", "reason",
+                         "merchReceipt", "custReceipt" };
   }
 }

@@ -7,12 +7,9 @@ package eu.wm.posxml.domain;
  */
 public class CardData extends Card {
 
-  private static final String[] fieldOrder = new String[] { "physicalType", "cardName", "pan", "expires",
-                                                           "serviceCode", "al", "aid", "cryptedPan" };
-
   @Override
   public String[] getFieldOrder() {
-    return fieldOrder;
+    return new String[] { "physicalType", "cardName", "pan", "expires", "serviceCode", "al", "aid", "cryptedPan" };
   }
 
   @PosXMLField(mandatory = true, length = 1)

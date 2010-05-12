@@ -5,10 +5,8 @@ package eu.wm.posxml.domain;
  * 
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
-public abstract class AbstractTransactionResponse implements PosXMLDomainObject {
+public abstract class AbstractTransactionResponse extends AbstractResponse {
 
-  @PosXMLField(length = 6, mandatory = true)
-  private Integer returnCode;
   @PosXMLField(length = 256, mandatory = true)
   private String reason;
   @PosXMLField(mandatory = true)
@@ -23,14 +21,6 @@ public abstract class AbstractTransactionResponse implements PosXMLDomainObject 
   private String merchReceipt;
   @PosXMLField(length = 4096)
   private String custReceipt;
-
-  public Integer getReturnCode() {
-    return returnCode;
-  }
-
-  public void setReturnCode(Integer returnCode) {
-    this.returnCode = returnCode;
-  }
 
   public String getReason() {
     return reason;

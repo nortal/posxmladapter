@@ -1,0 +1,12 @@
+<FindBugsFilter>
+<!--	<Match>-->
+<!--		<Or>-->
+<!--			<Bug code="DLS,Dm,IMA,SnVI,EI,EI2,ST,NS" />-->
+<!--			<Bug pattern="BC_UNCONFIRMED_CAST" />-->
+<!--			<Bug pattern="EI_EXPOSE_REP2" />-->
+<!--			<Bug pattern="EI_EXPOSE_REP" />-->
+<!--			<Bug pattern="SE_BAD_FIELD" />-->
+<!--		</Or>-->
+<!--	</Match>-->
+</FindBugsFilter>
+

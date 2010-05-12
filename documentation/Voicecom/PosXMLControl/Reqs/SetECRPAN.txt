@@ -1,0 +1,4 @@
+<SetECRPANRequest>
+<ECRPANList>847973190 BSwedbank Visa NPNK               854374040 BSwedbank Mastercard 1699         867625900 BSwedbank Mag test                </ECRPANList>
+</SetECRPANRequest>
+

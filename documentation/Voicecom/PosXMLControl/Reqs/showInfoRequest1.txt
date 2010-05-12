@@ -1,0 +1,5 @@
+﻿<DisplayMessageRequest>
+<Line1>õäöü ÕÄÖÜ</Line1>
+<Line2>1234567890123456789012345</Line2>
+<Line3>пуфцчбгджзийлQWERTYU</Line3>
+</DisplayMessageRequest>

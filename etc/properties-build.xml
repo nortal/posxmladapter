@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PosXml adapter build properties">
+
+  <!-- CL properties -->
+  <property name="changelogic-build.xml" value="changelogic-build.xml" />
+  
+  <!-- build properties -->
+  <property name="src.dir" value="src"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="build.lib.dir" value="${lib.dir}/build"/>
+  <property name="test.lib.dir" value="${lib.dir}/test"/>
+  <property name="build.dir" value="build"/>
+  <property name="build.classes.dir" value="${build.dir}/classes"/>
+  <property file="version.properties" />
+  <property file="change.properties" />
+  <property name="full.version" value="${stage}.${milestone}.${submilestone}.${version}" />
+
+  <!-- Ivy properties -->
+  <property name="ivy.cache.name" value="cache-posXMLAdapter"/>
+  <property name="ivy.conf.file" value="ivyconf.xml" />
+  <property name="ivy.cache.dir" value="${user.home}/.ivy2/${ivy.cache.name}" />
+  <property file="${ivy.properties.file}" />
+  <property name="ivy.file" value="ivy.xml" />
+  <property name="ivy.lib.pattern" value="${lib.dir}/[conf]/[artifact].[ext]" />
+
+  <!-- JUnit, Cobertura, PMD, FindBugs -->
+  <property name="tests.src" location="test/src" />
+  <property name="tests.build" location="test/build" />
+  <property name="tests.classes" location="${tests.build}/classes" />
+  <property name="tests.instrumented-classes" location="${tests.build}/instrumented-classes" />
+  <property name="tests.cobertura.datafile" location="${tests.build}/cobertura.ser" />
+  <property name="tests.reports" location="test/reports" />
+  <property name="tests.reports.junit.xml" location="${tests.reports}/junit/xml" />
+  <property name="tests.reports.junit.html" location="${tests.reports}/junit/html" />
+  <property name="tests.reports.cobertura" location="${tests.reports}/cobertura" />
+  <property name="tests.reports.pmd" location="${tests.reports}/pmd" />
+  <property name="tests.reports.findbugs" location="${tests.reports}/findbugs" />
+  <property name="tests.pmd.ruleset" location="etc/pmd/pmd.ruleset" />
+  <property name="tests.findbugs.excludeFilter" location="etc/findbugs/excludeFilter.xml" />
+
+</project>

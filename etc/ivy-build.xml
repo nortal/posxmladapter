@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PosXml adapter ivy build" xmlns:ivy="antlib:fr.jayasoft.ivy.ant">
+
+  <taskdef resource="fr/jayasoft/ivy/ant/antlib.xml" uri="antlib:fr.jayasoft.ivy.ant">
+    <classpath>
+      <pathelement location="lib/static/ivy-2.1.0.jar" />
+    </classpath>
+  </taskdef>
+  
+  <target name="ivy-clean-lib" description="--> cleans lib directories (static libs are not removed)">
+    <delete includeemptydirs="true" failonerror="false" dir="${lib.dir}" excludes="static/*.jar"/>
+  </target>
+
+  <target name="ivy-clean-cache" description="--> cleans cache files">
+    <delete quiet="true" includeemptydirs="true" failonerror="false">
+      <fileset dir="${ivy.cache.dir}">
+        <include name="**/*" />
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="ivy" depends="ivy-clean-lib" description="--> retreives all dependencies">
+    <ivy:configure file="${ivy.conf.file}" />
+    <ivy:resolve file="${ivy.file}" />
+    <ivy:retrieve pattern="${ivy.lib.pattern}" />
+  </target>
+
+</project>

@@ -1,21 +1,22 @@
 package eu.wm.posxml.domain;
 
-import java.util.Date;
 
 /**
  * Object that represents card type in XML
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
 public class Card implements PosXMLDomainObject {
-  
-  private static final String[] fieldOrder = new String[]{"pan","cardName","expires","serviceCode"};
+
+  public String[] getFieldOrder() {
+    return new String[]{"pan","cardName","expires","serviceCode"};
+  }
 
   @PosXMLField(length=20,mandatory=true)
   private String pan;
   @PosXMLField(length=40,mandatory=true)
   private String cardName;
-  @PosXMLField(mandatory=true, pattern="MM/yy")
-  private Date expires;
+  @PosXMLField(mandatory=true, length=5)
+  private String expires;
   @PosXMLField(length=3,mandatory=true)
   private Integer serviceCode;
   public String getPan() {
@@ -30,10 +31,10 @@ public class Card implements PosXMLDomainObject {
   public void setCardName(String cardName) {
     this.cardName = cardName;
   }
-  public Date getExpires() {
+  public String getExpires() {
     return expires;
   }
-  public void setExpires(Date expires) {
+  public void setExpires(String expires) {
     this.expires = expires;
   }
   public Integer getServiceCode() {
@@ -41,8 +42,5 @@ public class Card implements PosXMLDomainObject {
   }
   public void setServiceCode(Integer serviceCode) {
     this.serviceCode = serviceCode;
-  }
-  public String[] getFieldOrder() {
-    return fieldOrder;
   }
 }

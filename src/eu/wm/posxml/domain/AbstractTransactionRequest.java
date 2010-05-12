@@ -1,10 +1,11 @@
 package eu.wm.posxml.domain;
 
 /**
- * Common fields for different transaction requests 
+ * Common fields for different transaction requests
+ * 
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
-public abstract class AbstractTransactionRequest implements PosXMLDomainObject {
+public abstract class AbstractTransactionRequest implements PosXMLRequest {
 
   @PosXMLField(length = 12, mandatory = true)
   private Integer amount;
@@ -80,6 +81,7 @@ public abstract class AbstractTransactionRequest implements PosXMLDomainObject {
   public void setPreAuthorisation(Integer preAuthorisation) {
     this.preAuthorisation = preAuthorisation;
   }
+
   public Integer getCardPresent() {
     return cardPresent;
   }

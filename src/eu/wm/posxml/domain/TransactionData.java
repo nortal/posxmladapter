@@ -9,11 +9,14 @@ import java.util.Date;
  */
 public class TransactionData implements PosXMLDomainObject {
 
-  private static final String[] fieldOrder = new String[] { "transactionID", "amount", "additionalAmount",
-                                                           "currencyName", "datetime", "datetimeRev", "stan",
-                                                           "stanRev", "type", "cardAction", "authorizationNo",
-                                                           "hostAnswer", "secAmount", "secAdditionalAmount",
-                                                           "secCurrencyName", "signatureRequired", "pinVerified" };
+  /**
+   * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
+   */
+  public String[] getFieldOrder() {
+    return new String[] { "transactionID", "amount", "additionalAmount", "currencyName", "datetime", "datetimeRev",
+                         "stan", "stanRev", "type", "cardAction", "authorizationNo", "hostAnswer", "secAmount",
+                         "secAdditionalAmount", "secCurrencyName", "signatureRequired", "pinVerified" };
+  }
 
   @PosXMLField(mandatory = true, length = 16)
   private String transactionID;
@@ -48,13 +51,6 @@ public class TransactionData implements PosXMLDomainObject {
   private Integer signatureRequired;
   @PosXMLField(name = "PINVerified", mandatory = true, length = 1)
   private Integer pinVerified;
-
-  /**
-   * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
-   */
-  public String[] getFieldOrder() {
-    return fieldOrder;
-  }
 
   public String getTransactionID() {
     return transactionID;

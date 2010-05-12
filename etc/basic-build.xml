@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PosXml adapter basic build">
+
+  <path id="build.classpath">
+    <fileset dir="${build.lib.dir}" includes="*.jar"/>
+  </path>
+
+  <target name="clean" description="Clean build dirs">
+    <delete dir="${build.dir}"/>
+  </target>
+  
+  <target name="compile" description="Compile java classes">
+    <mkdir dir="${build.classes.dir}"/>
+    <javac 
+      classpathref="build.classpath" 
+      srcdir="${src.dir}" 
+      destdir="${build.classes.dir}" 
+      debug="true" 
+      optimize="true" 
+      includeantruntime="no" 
+      encoding="UTF-8"/>
+  </target>
+  
+  <target name="jar" depends="compile" description="jar compiled classes">
+  	<jar destfile="${build.dir}/posXMLadapter.jar">
+			<fileset dir="${build.classes.dir}"/>
+      <manifest>
+        <attribute name="Implementation-Title" value="PosXML adapter" />
+        <attribute name="Implementation-Version" value="${full.version}" />
+        <attribute name="Implementation-Vendor" value="Webmedia Group" />
+      </manifest>
+  	</jar>
+  </target>
+  
+	<target name="build" depends="compile,jar" description="build posXML adapter"/>
+
+</project>

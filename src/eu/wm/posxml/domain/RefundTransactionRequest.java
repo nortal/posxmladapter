@@ -5,16 +5,13 @@ package eu.wm.posxml.domain;
  * 
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
-public class RefundTransactionRequest implements PosXMLDomainObject {
-
-  private static final String[] fieldOrder = new String[] { "transactionID", "transactionSTAN", "printReceipt",
-                                                           "returnReceipts" };
+public class RefundTransactionRequest implements PosXMLRequest {
 
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
   public String[] getFieldOrder() {
-    return fieldOrder;
+    return new String[] { "transactionID", "transactionSTAN", "printReceipt", "returnReceipts" };
   }
 
   @PosXMLField(length = 16)

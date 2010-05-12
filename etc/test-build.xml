@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PosXml adapter tests Build">
+
+  <!-- Classpath for compiling tests -->
+  <path id="tests.build.classpath">
+    <fileset dir="${build.lib.dir}" includes="*.jar" />
+    <fileset dir="${test.lib.dir}" includes="*.jar" />
+    <path location="${build.classes.dir}"/>
+  </path>
+
+  <!-- Classpath for running tests -->
+  <path id="tests.run.classpath">
+    <path location="${build.classes.dir}"/>
+    <path location="${tests.classes}" />
+    <fileset dir="${test.lib.dir}" includes="*.jar"/>
+    <fileset dir="${build.lib.dir}" includes="*.jar"/>
+  </path>
+
+
+  <target name="clean-tests">
+    <delete dir="${tests.reports}" failonerror="true" />
+    <delete dir="${tests.build}" failonerror="true" />
+  </target>
+  
+  <target name="compile-tests">
+    <mkdir dir="${tests.build}" />
+    <mkdir dir="${tests.classes}" />
+
+    <javac encoding="UTF-8"
+      		 srcdir="${tests.src}"
+           destdir="${tests.classes}"
+           classpathref="tests.build.classpath"
+           includeantruntime="false" />
+    <copy file="${tests.src}/test.properties" todir="${tests.classes}" />
+    <copy file="${tests.src}/log4j.xml" todir="${tests.classes}"/>
+  </target>
+  
+  
+  <!-- junit & cobertura  -->
+  <target name="run-tests" depends="compile-tests" description="Runs JUnit tests, generating test and coverage reports. Property 'junit.tests.failed' is set when at least one test is failed.">
+    <mkdir dir="${tests.reports}" />
+    <mkdir dir="${tests.reports.junit.xml}" />
+    <mkdir dir="${tests.reports.junit.html}" />
+    <mkdir dir="${tests.reports.cobertura}" />
+    <mkdir dir="${tests.instrumented-classes}" />
+
+    <!-- Delete cobertura data file -->
+    <delete file="${tests.cobertura.datafile}" />
+    
+    <!-- Instrument classes with cobertura -->
+    <taskdef classpathref="tests.run.classpath" resource="tasks.properties" />
+    <cobertura-instrument todir="${tests.instrumented-classes}" datafile="${tests.cobertura.datafile}">
+      <fileset dir="${build.classes.dir}">
+        <include name="**/*.class" />
+      </fileset>
+    </cobertura-instrument>
+
+    <!-- Run tests -->
+    <junit printsummary="yes"
+           maxmemory="512m"
+           haltonfailure="no"
+           failureproperty="junit.tests.failed"
+           errorproperty="junit.tests.failed"
+      		 fork="yes">
+
+      <!-- Cobertura data file -->
+      <sysproperty key="net.sourceforge.cobertura.datafile" file="${tests.cobertura.datafile}" />
+
+      <classpath location="${tests.instrumented-classes}"/>
+      <classpath>
+        <path refid="tests.run.classpath" />
+      </classpath>
+
+      <formatter type="xml" />
+      <batchtest fork="yes" todir="${tests.reports.junit.xml}">
+        <fileset dir="${tests.src}">
+          <include name="**/*Test.java" />
+          <exclude name="**/AllTests.java" />
+          <exclude name="**/BaseTransactionalJUnit4SpringContextTest.java" />
+        </fileset>
+      </batchtest>
+    </junit>
+
+    <!-- Create JUnit report upon tests results -->
+    <junitreport todir="${tests.reports}">
+      <fileset dir="${tests.reports.junit.xml}">
+        <include name="TEST-*.xml" />
+      </fileset>
+      <report format="frames" todir="${tests.reports.junit.html}" />
+    </junitreport>
+
+    <!-- Create Cobertura code coverage report -->
+    <cobertura-report format="html"
+                      destdir="${tests.reports.cobertura}"
+                      srcdir="${src.dir}"
+                      datafile="${tests.cobertura.datafile}" />
+    <cobertura-report format="xml"
+                      destdir="${tests.reports.cobertura}"
+                      srcdir="${src.dir}"
+                      datafile="${tests.cobertura.datafile}" />
+  </target>
+  
+  <!-- Run PMD checks -->
+  <target name="pmd" description="Checks codebase with PMD tool">
+    <mkdir dir="${tests.reports.pmd}" />
+    <taskdef name="pmd" classpathref="tests.run.classpath" classname="net.sourceforge.pmd.ant.PMDTask" />
+    <pmd encoding="UTF-8">
+      <ruleset>${tests.pmd.ruleset}</ruleset>
+      <formatter type="xml" toFile="${tests.reports.pmd}/pmd.xml" />
+      <formatter type="html" toFile="${tests.reports.pmd}/pmd.html" />
+      <fileset dir="${src.dir}"/>
+    </pmd>
+  </target>
+
+  <!-- Findbugs -->
+  <target name="findbugs" description="Checks codebase with findbugs tool">
+    <mkdir dir="${tests.reports.findbugs}" />
+    <taskdef name="findbugs" classpathref="tests.run.classpath" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" />
+    <findbugs pluginList="${tests.lib}/findbugs.jar"
+              classpathref="tests.run.classpath"
+              output="xml:withMessages"
+              outputFile="${tests.reports.findbugs}/findbugs.xml"
+              projectName="Message forwarder project"
+              jvmargs="-Dprofiler.report=true -Xmx1024m -XX:MaxPermSize=128m"
+              excludeFilter="${tests.findbugs.excludeFilter}"
+              effort="min"
+              timeout="900000">
+
+      <auxClasspath refid="tests.run.classpath" />
+      <sourcePath path="${src.dir}" />
+      <class location="${build.classes.dir}" />
+    </findbugs>
+  </target>
+
+</project>

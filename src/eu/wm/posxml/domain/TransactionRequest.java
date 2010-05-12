@@ -7,16 +7,13 @@ package eu.wm.posxml.domain;
  */
 public class TransactionRequest extends AbstractTransactionRequest {
 
-  private static final String[] fieldOrder = new String[] { "amount", "currencyName", "transactionID", "attendantID",
-                                                           "printReceipt", "returnReceipts", "preAuthorisation",
-                                                           "partialAuthorization", "discountEnabled", "lastFourDigits",
-                                                           "timeout", "language", "manual", "cardPresent", "cardholderPresent"};
-
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
   public String[] getFieldOrder() {
-    return fieldOrder;
+    return new String[] { "amount", "currencyName", "transactionID", "attendantID", "printReceipt", "returnReceipts",
+                         "preAuthorisation", "partialAuthorization", "discountEnabled", "lastFourDigits", "timeout",
+                         "language", "manual", "cardPresent", "cardholderPresent" };
   }
 
   @PosXMLField(length = 1)
