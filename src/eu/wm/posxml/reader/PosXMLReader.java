@@ -151,7 +151,7 @@ public final class PosXMLReader {
       return Integer.valueOf(value);
     }
     if(clazz == BigDecimal.class) {
-      return new BigDecimal(value);
+      return new BigDecimal(value.replace(",", "."));
     }
     if(clazz == Date.class) {
       if(field == null || StringUtils.isEmpty(field.pattern())) {

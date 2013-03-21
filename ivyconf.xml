@@ -3,9 +3,9 @@
   <settings defaultResolver="default-chain" />
   <resolvers>
 
-    <url name="tiiger">
-      <ivy pattern="http://tiiger/ivy/[organisation]/[module]/ivys/ivy-[revision].xml" />
-      <artifact pattern="http://tiiger/ivy/[organisation]/[module]/[type]s/[artifact]-[revision].[type]" />
+    <url name="wm">
+      <ivy pattern="http://ivy.webmedia.int/[organisation]/[module]/ivys/ivy-[revision].xml" />
+      <artifact pattern="http://ivy.webmedia.int/[organisation]/[module]/jars/[artifact]-[revision].[ext]" />
     </url>
 
     <url name="com.springsource.repository.bundles.release">
@@ -21,7 +21,7 @@
     <chain name="default-chain">
       <resolver ref="com.springsource.repository.bundles.release" />
       <resolver ref="com.springsource.repository.bundles.external" />
-      <resolver ref="tiiger" />
+      <resolver ref="wm" />
     </chain>
 
   </resolvers>

@@ -170,8 +170,8 @@ public class GetParametersResponse implements PosXMLResponse {
   private Integer hostIPPortT;
   @PosXMLField(length = 1)
   private Integer hostSSLUsed;
-  @PosXMLField(length = 1)
-  private Integer hostType;
+  @PosXMLField
+  private String hostType;
   @PosXMLField(length = 1, name = "DWLMode")
   private Integer dwlMode;
   @PosXMLField(length = 23, name = "DWLIPAddress")
@@ -614,10 +614,10 @@ public class GetParametersResponse implements PosXMLResponse {
   public void setHostSSLUsed(Integer hostSSLUsed) {
     this.hostSSLUsed = hostSSLUsed;
   }
-  public Integer getHostType() {
+  public String getHostType() {
     return hostType;
   }
-  public void setHostType(Integer hostType) {
+  public void setHostType(String hostType) {
     this.hostType = hostType;
   }
   public Integer getDwlMode() {

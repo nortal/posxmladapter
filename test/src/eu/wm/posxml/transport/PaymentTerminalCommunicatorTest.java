@@ -14,6 +14,7 @@ import eu.wm.posxml.reader.PosXMLReader;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -26,6 +27,11 @@ public class PaymentTerminalCommunicatorTest {
   private static String terminalAddress = JUnitTestHelper.getProperty(JUnitTestHelper.PROPERTY__TERMINAL_ADDRESS);
   private static int timeout  = 60000;
 
+  @Before
+  public void setUp() throws InterruptedException {
+    Thread.sleep(2000);
+  }
+  
   @Test
   public void sendNullMessage() {
     try {
@@ -82,7 +88,7 @@ public class PaymentTerminalCommunicatorTest {
     request.setAmount(10000);
     request.setAttendantID("12345");
     request.setCardholderPresent(1);
-    request.setCurrencyName("EEK");
+    request.setCurrencyName("EUR");
     request.setPrintReceipt(2);
     request.setTransactionID("123233");
     Document doc = PosXMLComposer.composeXml(request);
@@ -97,7 +103,7 @@ public class PaymentTerminalCommunicatorTest {
     request.setAmount(10000);
     request.setAttendantID("12345");
     request.setCardholderPresent(1);
-    request.setCurrencyName("EEK");
+    request.setCurrencyName("EUR");
     request.setPrintReceipt(2);
     request.setTransactionID("123233");
     request.setManual(1);
@@ -109,7 +115,7 @@ public class PaymentTerminalCommunicatorTest {
   }
 
   @Test
-  public void transactionMagStripeRequest() throws DocumentException {
+  public void transactionMagStripeRequest() throws DocumentException, InterruptedException {
     // read card data
     ReadCardRequest cardRequest = new ReadCardRequest();
     cardRequest.setTimeout(60);
@@ -124,10 +130,12 @@ public class PaymentTerminalCommunicatorTest {
     Assert.assertNotNull(cardData.getCard());
     Card card = cardData.getCard();
     
+    // sleep a bit before sending another request to terminal
+    Thread.sleep(1000);
     
     TransactionMagStripeRequest request = new TransactionMagStripeRequest();
     request.setAmount(10000);
-    request.setCurrencyName("EEK");
+    request.setCurrencyName("EUR");
     request.setPan(card.getPan());
     request.setExpires(card.getExpires());
     request.setPrintReceipt(2);

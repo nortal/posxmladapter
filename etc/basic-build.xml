@@ -21,12 +21,12 @@
       encoding="UTF-8"/>
   </target>
   
-  <target name="jar" depends="compile" description="jar compiled classes">
+  <target name="jar" depends="compile,get-current-version" description="jar compiled classes">
   	<jar destfile="${build.dir}/posXMLadapter.jar">
 			<fileset dir="${build.classes.dir}"/>
       <manifest>
         <attribute name="Implementation-Title" value="PosXML adapter" />
-        <attribute name="Implementation-Version" value="${full.version}" />
+        <attribute name="Implementation-Version" value="${module.version}" />
         <attribute name="Implementation-Vendor" value="Webmedia Group" />
       </manifest>
   	</jar>

@@ -2,7 +2,7 @@
 <ivy-module version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://incubator.apache.org/ivy/schemas/ivy.xsd">
 
   <info organisation="Webmedia Group" module="PosXML adapter">
-    <ivyauthor name="Tanel Käär" url="mailto:tanelk@webmedia.ee" />
+    <ivyauthor name="Tanel Käär" url="mailto:Tanel.Kaar@nortal.com" />
   </info>
  
   <configurations>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hg-development-kit" basedir=".">
+	
+	<property name="hgdk.project.properties" value="${basedir}/hgdk-project.properties" />
+	<property name="hgdk.personal.properties" value="${basedir}/hgdk-personal.properties" />
+	
+	<!-- TODO: remove hgdk.config.properties when all users migrate to project and personal properties. -->
+	<property name="hgdk.config.properties" value="${basedir}/hgdk-config.properties" />
+	
+	<property name="hgdk.homeDirectory" value="${basedir}/.hg-development-kit" />
+	
+	<property environment="env" />
+	
+	<echo>${env.JAVA_HOME}</echo>
+	<echo>${java.home}</echo>
+	
+	<target name="merge-heads" description="Merges all conflicting branch heads">
+		<antcall target="execute-without-pull-without-push"> 
+			<param name="remote" value="true" />
+			<param name="local" value="false" />
+		</antcall>
+	</target>
+	
+	<target name="merge-local-branches" description="Merges local named branches in correct order">
+		<antcall target="execute-without-pull-without-push"> 
+			<param name="remote" value="false" />
+			<param name="local" value="true" />
+		</antcall>
+	</target>
+	
+	<target name="merge-all" description="Merges conflicting branch heads and then merges named branches in correct order">
+		<antcall target="execute-without-pull-without-push"> 
+			<param name="remote" value="true" />
+			<param name="local" value="true" />
+		</antcall>
+	</target>
+	
+	<target name="pull-merge-heads" description="Pulls remote changes and merges all conflicting branch heads">
+		<antcall target="execute-with-pull-without-push"> 
+			<param name="remote" value="true" />
+			<param name="local" value="false" />
+		</antcall>
+	</target>
+	
+	<target name="pull-merge-local-branches" description="Pulls remote changes and merges local named branches in correct order">
+		<antcall target="execute-with-pull-without-push"> 
+			<param name="remote" value="false" />
+			<param name="local" value="true" />
+		</antcall>
+	</target>
+	
+	<target name="pull-merge-all" description="Pulls remote changes, merges conflicting branch heads and then merges named branches in correct order">
+		<antcall target="execute-with-pull-without-push"> 
+			<param name="remote" value="true" />
+			<param name="local" value="true" />
+		</antcall>
+	</target>
+	
+	<target name="push" description="Pushes local changes">
+		<antcall target="execute-without-pull-with-push"> 
+			<param name="remote" value="false" />
+			<param name="local" value="false" />
+		</antcall>
+	</target>
+	
+	<target name="merge-heads-push" description="Merges all conflicting branch heads and pushes back">
+		<antcall target="execute-without-pull-with-push"> 
+			<param name="remote" value="true" />
+			<param name="local" value="false" />
+		</antcall>
+	</target>
+	
+	<target name="merge-local-branches-push" description="Merges local named branches in correct order and pushes local changes">
+		<antcall target="execute-without-pull-with-push"> 
+			<param name="remote" value="false" />
+			<param name="local" value="true" />
+		</antcall>
+	</target>
+	
+	<target name="merge-all-push" description="Merges conflicting branch heads, merges named branches in correct order and pushes back">
+		<antcall target="execute-without-pull-with-push"> 
+			<param name="remote" value="true" />
+			<param name="local" value="true" />
+		</antcall>
+	</target>
+	
+	<target name="pull-merge-heads-push" description="Pulls remote changes, merges all conflicting branch heads and pushes back">
+		<antcall target="execute-with-pull-with-push"> 
+			<param name="remote" value="true" />
+			<param name="local" value="false" />
+		</antcall>
+	</target>
+	
+	<target name="pull-merge-local-branches-push" description="Pulls remote changes, merges local named branches in correct order and pushes local changes">
+		<antcall target="execute-with-pull-with-push"> 
+			<param name="remote" value="false" />
+			<param name="local" value="true" />
+		</antcall>
+	</target>
+	
+	<target name="pull-merge-all-push" description="Pulls remote changes, merges conflicting branch heads, merges named branches in correct order and pushes back">
+		<antcall target="execute-with-pull-with-push"> 
+			<param name="remote" value="true" />
+			<param name="local" value="true" />
+		</antcall>
+	</target>
+	
+	
+	<target name="execute-without-pull-without-push">
+		<antcall target="execute-merge"> 
+			<param name="remote" value="${remote}" />
+			<param name="local" value="${local}" />
+			<param name="pull" value="false" />
+			<param name="push" value="false" />
+		</antcall>
+	</target>
+	
+	<target name="execute-with-pull-without-push">
+		<antcall target="execute-merge"> 
+			<param name="remote" value="${remote}" />
+			<param name="local" value="${local}" />
+			<param name="pull" value="true" />
+			<param name="push" value="false" />
+		</antcall>
+	</target>
+	
+	<target name="execute-without-pull-with-push">
+		<antcall target="execute-merge"> 
+			<param name="remote" value="${remote}" />
+			<param name="local" value="${local}" />
+			<param name="pull" value="false" />
+			<param name="push" value="true" />
+		</antcall>
+	</target>
+	
+	<target name="execute-with-pull-with-push">
+		<antcall target="execute-merge"> 
+			<param name="remote" value="${remote}" />
+			<param name="local" value="${local}" />
+			<param name="pull" value="true" />
+			<param name="push" value="true" />
+		</antcall>
+	</target>
+	
+	<path id="hgdk.class.path">
+		<fileset dir="${hgdk.homeDirectory}" includes="*.jar" />
+	</path>
+	
+	<path id="hgdk.class.path.ant">
+		<path refid="hgdk.class.path" />
+		<fileset dir="${env.ANT_HOME}/lib" includes="*.jar" />
+	</path>
+	
+	<target name="execute-merge">
+		<java fork="true" failonerror="yes" classpathref="hgdk.class.path.ant" classname="eu.webmedia.vcs.merge.Main">
+			<arg value="${basedir}" />
+			<arg value="${hgdk.project.properties},${hgdk.personal.properties},${hgdk.config.properties}" />
+			<arg value="${remote}" />
+			<arg value="${local}" />
+			<arg value="${pull}" />
+			<arg value="${push}" />
+		</java>
+	</target>
+	
+	
+	<target name="add-version-tags">
+		<java fork="true" failonerror="yes" classpathref="hgdk.class.path" classname="eu.webmedia.vcs.tag.Main">
+			<arg value="${basedir}" />
+			<arg value="${hgdk.project.properties},${hgdk.personal.properties},${hgdk.config.properties}" />
+			<arg value="${startRevision}" />
+		</java>
+	</target>
+	
+	
+	<target name="create-release-branch" description="Create new release branch and increase development cycle">
+		<input message="Enter new branch name:" addproperty="newBranchName" />
+		<input message="Enter stage to increment [major, minor, test]:" validargs="major,minor,test" addproperty="nextStage" />
+		
+		<java fork="true" failonerror="yes" classpathref="hgdk.class.path" classname="eu.webmedia.vcs.branch.Main">
+			<arg value="${basedir}" />
+			<arg value="${newBranchName}" />
+			<arg value="${nextStage}" />
+		</java>
+	</target>
+	
+	
+	<target name="jira-issue-key-check">
+		<java fork="true" failonerror="yes" classpathref="hgdk.class.path" classname="eu.webmedia.vcs.check.JiraIssueKeyCheck">
+			<arg value="${basedir}" />
+			<arg value="${revision}" />
+			<arg value="${jiraProjectKeys}" />
+		</java>
+	</target>
+	
+	
+	<target name="current-version" description="Sets the current version as property 'currentVersion'">
+		<java fork="true" failonerror="yes" classpathref="hgdk.class.path" classname="eu.webmedia.vcs.tag.CurrentVersionResolver" outputproperty="currentVersion">
+			<arg value="${basedir}" />
+		</java>
+	</target>
+	
+</project>

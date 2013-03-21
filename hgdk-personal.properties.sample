@@ -1,0 +1,4 @@
+# You can override any properties from hgdk-project.properties in this file.
+
+# Where to perform the merges? In the end all results will be pulled back to your working directory.
+mergeDirectory=C:/merge/

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="test/build/classes" path="test/src"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.collections.jar"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.httpclient.jar" sourcepath="C:/scr/commons-httpclient-3.0.1/src/java"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.logging.jar"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.log4j.jar"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.dom4j.jar"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.jaxen.jar"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.junit.jar"/>
+	<classpathentry kind="lib" path="lib/test/powermock-easymock.jar"/>
+	<classpathentry kind="lib" path="lib/test/com.springsource.org.easymock.jar"/>
+	<classpathentry kind="lib" path="lib/test/com.springsource.org.easymock.classextension.jar"/>
+	<classpathentry kind="lib" path="lib/test/cglib-nodep.jar"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.codec.jar"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.lang.jar"/>
+	<classpathentry kind="lib" path="lib/test/com.springsource.javassist.jar"/>
+	<classpathentry kind="lib" path="lib/test/com.springsource.org.objenesis.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
