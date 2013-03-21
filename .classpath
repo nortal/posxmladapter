@@ -4,7 +4,7 @@
 	<classpathentry kind="src" output="test/build/classes" path="test/src"/>
 	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.beanutils.jar"/>
 	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.collections.jar"/>
-	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.httpclient.jar" sourcepath="C:/scr/commons-httpclient-3.0.1/src/java"/>
+	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.httpclient.jar"/>
 	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.commons.logging.jar"/>
 	<classpathentry kind="lib" path="lib/build/com.springsource.org.apache.log4j.jar"/>
 	<classpathentry kind="lib" path="lib/build/com.springsource.org.dom4j.jar"/>

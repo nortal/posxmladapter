@@ -27,7 +27,7 @@
       <manifest>
         <attribute name="Implementation-Title" value="PosXML adapter" />
         <attribute name="Implementation-Version" value="${module.version}" />
-        <attribute name="Implementation-Vendor" value="Webmedia Group" />
+        <attribute name="Implementation-Vendor" value="Nortal Group" />
       </manifest>
   	</jar>
   </target>
