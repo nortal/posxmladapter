@@ -25,7 +25,8 @@ import org.junit.Test;
 public class PaymentTerminalCommunicatorTest {
 
   private static String terminalAddress = JUnitTestHelper.getProperty(JUnitTestHelper.PROPERTY__TERMINAL_ADDRESS);
-  private static int timeout  = 60000;
+  private static int soTimeout  = 60000;
+  private static int coTimeout  = 10000;
 
   @Before
   public void setUp() throws InterruptedException {
@@ -35,7 +36,7 @@ public class PaymentTerminalCommunicatorTest {
   @Test
   public void sendNullMessage() {
     try {
-      PaymentTerminalCommunicator.sendMessage(null, null, 0);
+      PaymentTerminalCommunicator.sendMessage(null, null, 0, 0);
       Assert.fail();
     } catch (IllegalArgumentException e) {
       // normal behavior
@@ -50,7 +51,7 @@ public class PaymentTerminalCommunicatorTest {
     request.setLanguage("et");
 
     Document doc = PosXMLComposer.composeXml(request);
-    String response = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, timeout);
+    String response = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, coTimeout, soTimeout);
     PosXMLDomainObject responseObject = PosXMLReader.readXml(response);
     Assert.assertNotNull(responseObject);
   }
@@ -58,7 +59,7 @@ public class PaymentTerminalCommunicatorTest {
   @Test
   public void getParameters() throws DocumentException {
     Document doc = PosXMLComposer.composeXml(new GetParametersRequest());
-    String xml = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, timeout);
+    String xml = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, coTimeout, soTimeout);
     PosXMLDomainObject responseObject = PosXMLReader.readXml(xml);
     Assert.assertNotNull(responseObject);
   }
@@ -66,7 +67,7 @@ public class PaymentTerminalCommunicatorTest {
   @Test
   public void getParametersPlain() {
     String request = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><GetParametersRequest></GetParametersRequest></PosXML>";
-    String response = PaymentTerminalCommunicator.sendMessage(request, terminalAddress, timeout);
+    String response = PaymentTerminalCommunicator.sendMessage(request, terminalAddress, coTimeout, soTimeout);
     Assert.assertNotNull(response);
   }
   
@@ -77,7 +78,7 @@ public class PaymentTerminalCommunicatorTest {
     cardRequest.setLanguage("et");
 
     Document doc = PosXMLComposer.composeXml(cardRequest);
-    String xml = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, timeout);
+    String xml = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, coTimeout, soTimeout);
     PosXMLDomainObject responseObject = PosXMLReader.readXml(xml);
     Assert.assertNotNull(responseObject);
   }
@@ -92,7 +93,7 @@ public class PaymentTerminalCommunicatorTest {
     request.setPrintReceipt(2);
     request.setTransactionID("123233");
     Document doc = PosXMLComposer.composeXml(request);
-    String responseXML = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, timeout);
+    String responseXML = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, coTimeout, soTimeout);
     PosXMLDomainObject responseObject = PosXMLReader.readXml(responseXML);
     Assert.assertNotNull(responseObject);
   }
@@ -109,7 +110,7 @@ public class PaymentTerminalCommunicatorTest {
     request.setManual(1);
     
     Document doc = PosXMLComposer.composeXml(request);
-    String responseXML = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, timeout);
+    String responseXML = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, coTimeout, soTimeout);
     PosXMLDomainObject responseObject = PosXMLReader.readXml(responseXML);
     Assert.assertNotNull(responseObject);
   }
@@ -122,7 +123,7 @@ public class PaymentTerminalCommunicatorTest {
     cardRequest.setLanguage("et");
 
     Document doc = PosXMLComposer.composeXml(cardRequest);
-    String xml = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, timeout);
+    String xml = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, coTimeout, soTimeout);
     PosXMLDomainObject responseObject = PosXMLReader.readXml(xml);
     Assert.assertNotNull(responseObject);
     Assert.assertTrue(responseObject instanceof ReadCardResponse);
@@ -143,7 +144,7 @@ public class PaymentTerminalCommunicatorTest {
     request.setCardholderPresent(1);
     request.setTransactionID("123233");
     doc = PosXMLComposer.composeXml(request);
-    String responseXML = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, timeout);
+    String responseXML = PaymentTerminalCommunicator.sendMessage(doc.asXML(), terminalAddress, coTimeout, soTimeout);
     responseObject = PosXMLReader.readXml(responseXML);
     Assert.assertNotNull(responseObject);
   }

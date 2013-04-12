@@ -28,16 +28,17 @@ public class PaymentTerminalCommunicator {
    * Send XML message to payment terminal.
    * @param message PosXML message. 
    * @param terminalAddress Terminal address.
-   * @param httpTimeout Http timeout
+   * @param connectionTimeout Timeout in milliseconds until a connection is etablished. A value of 0 means infinite timeout.
+   * @param socketTimeout Socket timeout in milliseconds which is the timeout for waiting for data. A value of 0 means infinite timeout.
    * @return Returns response message
    * @throws IllegalStateException if message sending fails.
    */
-  public static String sendMessage(String message, String terminalAddress, int httpTimeout) {
+  public static String sendMessage(String message, String terminalAddress, int connectionTimeout, int socketTimeout) {
     Validate.notNull(message, "Message must not be null!");
     Validate.notNull(terminalAddress, "Terminal address must not be null!");
 
     // execute request
-    PostMethod postMethod = sendRequest(message, terminalAddress, httpTimeout);
+    PostMethod postMethod = sendRequest(message, terminalAddress, connectionTimeout, socketTimeout);
 
     // check response status
     checkErrors(postMethod);
@@ -54,13 +55,13 @@ public class PaymentTerminalCommunicator {
    * Send request to payment terminal
    * @throws IllegalStateException if sending fails.
    */
-  private static PostMethod sendRequest(String message, String terminalAddress, int httpTimeout) {
+  private static PostMethod sendRequest(String message, String terminalAddress, int connectionTimeout, int socketTimeout) {
     if (LOGGER.isDebugEnabled()) {
       LOGGER.debug("Sending request\n" + message);
     }
     HttpClient httpClient = new HttpClient();
-    httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(httpTimeout);
-    httpClient.getHttpConnectionManager().getParams().setSoTimeout(httpTimeout);
+    httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(connectionTimeout);
+    httpClient.getHttpConnectionManager().getParams().setSoTimeout(socketTimeout);
     // httpClient.getParams().setParameter("http.protocol.version", HttpVersion.HTTP_1_0);
 
     PostMethod postMethod = new PostMethod(terminalAddress);

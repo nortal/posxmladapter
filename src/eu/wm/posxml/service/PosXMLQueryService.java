@@ -24,10 +24,11 @@ public class PosXMLQueryService {
    * Send PosXML request to payment terminal.
    * @param request PosXML request object.
    * @param terminalAddress Payment terminal address.
-   * @param httpTimeout Http timeout.
+   * @param connectionTimeout Timeout in milliseconds until a connection is etablished. A value of 0 means infinite timeout.
+   * @param socketTimeout Socket timeout in milliseconds which is the timeout for waiting for data. A value of 0 means infinite timeout.
    * @return Returns query result object, which contains information about the process and the resulting object if the query was successful.
    */
-  public QueryResult query(PosXMLRequest request, String terminalAddress, int httpTimeout) {
+  public QueryResult query(PosXMLRequest request, String terminalAddress, int connectionTimeout, int socketTimeout) {
     Validate.notNull(request, "Request must not be null!");
     try {
       // validate request
@@ -48,7 +49,7 @@ public class PosXMLQueryService {
       // execute query
       String responseXML;
       try {
-        responseXML = PaymentTerminalCommunicator.sendMessage(requestXML, terminalAddress, httpTimeout);
+        responseXML = PaymentTerminalCommunicator.sendMessage(requestXML, terminalAddress, connectionTimeout, socketTimeout);
       } catch (Exception e) {
         return parseException(QueryResultCode.TRANSPORT_ERROR, requestXML, null, e);
       }
