@@ -85,7 +85,7 @@ public class PaymentTerminalCommunicatorTest {
   @Test
   public void transactionRequest() throws DocumentException {
     TransactionRequest request = new TransactionRequest();
-    request.setAmount(10000);
+    request.setAmount(1000);
     request.setAttendantID("12345");
     request.setCardholderPresent(1);
     request.setCurrencyName("EUR");
@@ -100,7 +100,7 @@ public class PaymentTerminalCommunicatorTest {
   @Test
   public void transactionRequestManual() throws DocumentException {
     TransactionRequest request = new TransactionRequest();
-    request.setAmount(10000);
+    request.setAmount(1000);
     request.setAttendantID("12345");
     request.setCardholderPresent(1);
     request.setCurrencyName("EUR");
@@ -134,7 +134,7 @@ public class PaymentTerminalCommunicatorTest {
     Thread.sleep(1000);
     
     TransactionMagStripeRequest request = new TransactionMagStripeRequest();
-    request.setAmount(10000);
+    request.setAmount(1000);
     request.setCurrencyName("EUR");
     request.setPan(card.getPan());
     request.setExpires(card.getExpires());
