@@ -10,6 +10,7 @@ public class TransactionRequest extends AbstractTransactionRequest {
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
+  @Override
   public String[] getFieldOrder() {
     return new String[] { "amount", "currencyName", "transactionID", "attendantID", "printReceipt", "returnReceipts",
                          "preAuthorisation", "partialAuthorization", "discountEnabled", "lastFourDigits", "timeout",

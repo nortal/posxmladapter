@@ -11,6 +11,7 @@ public class IDCard implements PosXMLDomainObject {
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
+  @Override
   public String[] getFieldOrder() {
     return new String[]{"surname","firstName","middleName","gender","iDCode","cardNumber","validFrom","validTo","citizenship","placeOfBirth","dateOfBirth","residencePermitType","comment1","comment2","comment3","comment4"};
   }

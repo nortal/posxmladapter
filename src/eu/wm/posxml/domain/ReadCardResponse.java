@@ -9,6 +9,7 @@ public class ReadCardResponse extends AbstractResponse {
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
+  @Override
   public String[] getFieldOrder() {
     return new String[]{"returnCode","card"};
   }

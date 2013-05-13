@@ -24,7 +24,7 @@ public class PosXMLQueryService {
    * Send PosXML request to payment terminal.
    * @param request PosXML request object.
    * @param terminalAddress Payment terminal address.
-   * @param connectionTimeout Timeout in milliseconds until a connection is etablished. A value of 0 means infinite timeout.
+   * @param connectionTimeout Timeout in milliseconds until a connection is established. A value of 0 means infinite timeout.
    * @param socketTimeout Socket timeout in milliseconds which is the timeout for waiting for data. A value of 0 means infinite timeout.
    * @return Returns query result object, which contains information about the process and the resulting object if the query was successful.
    */
@@ -33,7 +33,7 @@ public class PosXMLQueryService {
     try {
       // validate request
       if(validateRequest) {
-        QueryResult result = validate(request, true);
+        QueryResult result = validateRequest(request);
         if(result != null) {
           return result;
         }      
@@ -72,7 +72,7 @@ public class PosXMLQueryService {
       
       // validate response
       if(validateResponse) {
-        QueryResult result = validate(response, false);
+        QueryResult result = validateResponse(response);
         if(result != null) {
           result.setRequestXML(requestXML);
           result.setResponseXml(responseXML);
@@ -128,23 +128,42 @@ public class PosXMLQueryService {
   }
 
   /**
-   * Validate request or response
+   * Validate PosXMLDomainObject
    * @return Returns null or QueryResult when the object validation failed
    */
-  private QueryResult validate(PosXMLDomainObject object, boolean isRequest) {
+  private QueryResult validate(PosXMLDomainObject object) {
     String comment = PosXmlValidator.validate(object);    
     if(comment == null) {
       return null;
     }
     QueryResult result = new QueryResult();
     result.setComment(comment);
-    if(isRequest) {
+    result.setError(true);
+    return result;
+  }
+
+  /**
+   * Validate request
+   * @return Returns null or QueryResult when the object validation failed
+   */
+  private QueryResult validateRequest(PosXMLDomainObject object) {
+    QueryResult result = validate(object);
+    if(result != null) {
       result.setQueryResultCode(QueryResultCode.REQUEST_VALIDATION_ERROR);
     }
-    else {
-      result.setQueryResultCode(QueryResultCode.RESPONSE_VALIDATION_ERROR);
+    return result;
+  }
+
+  /**
+   * Validate response
+   * @return Returns null or QueryResult when the object validation failed
+   */
+  private QueryResult validateResponse(PosXMLDomainObject object) {
+    QueryResult result = validate(object);
+    if(result == null) {
+      return null;
     }
-    result.setError(true);
+    result.setQueryResultCode(QueryResultCode.RESPONSE_VALIDATION_ERROR);
     return result;
   }
 

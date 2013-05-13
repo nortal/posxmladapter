@@ -1,9 +1,12 @@
 package eu.wm.posxml.validate;
 
+import eu.wm.posxml.domain.AbstractRequest;
+import eu.wm.posxml.domain.AbstractResponse;
 import eu.wm.posxml.domain.PosXMLDomainObject;
 import eu.wm.posxml.domain.PosXMLField;
 import eu.wm.posxml.helper.DomainObjectHelper;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Validate PosXML objects
@@ -31,6 +34,20 @@ public final class PosXmlValidator {
     if(errors.length() == 0) {
       return null;
     }
+    // validate request
+    if(object instanceof AbstractRequest) {
+      String error = ((AbstractRequest) object).validate();
+      if(StringUtils.isNotEmpty(error)) {
+        errors.append(error).append("\n");
+      }
+    }
+    // validate response
+    if(object instanceof AbstractResponse) {
+      String error = ((AbstractResponse) object).validate();
+      if(StringUtils.isNotEmpty(error)) {
+        errors.append(error).append("\n");
+      }
+    }
     return errors.toString();
   }
 
@@ -45,7 +62,11 @@ public final class PosXmlValidator {
     for(String fieldName : fieldOrder) {
       PosXMLField field = DomainObjectHelper.getField(object.getClass(), fieldName);
       Object value = DomainObjectHelper.getFieldValue(object, fieldName);
-      if(field.mandatory() && value == null) {
+      // no such field in model
+      if(field == null) {
+        continue;
+      }
+      else if(field.mandatory() && value == null) {
         errors.append("Field " + location + fieldName + " is mandatory!\n");
       }
       if(value == null) {

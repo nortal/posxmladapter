@@ -5,5 +5,10 @@ package eu.wm.posxml.domain;
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
 public interface PosXMLResponse extends PosXMLDomainObject {
-  // marker interface
+
+  /**
+   * Object specific validation rules
+   */
+  public String validate();
+
 }

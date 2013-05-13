@@ -10,6 +10,7 @@ public class TerminalData implements PosXMLDomainObject {
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
+  @Override
   public String[] getFieldOrder() {
     return new String[] { "id", "serNo", "name", "address", "merchantRegNo", "payDesk", "verificationResult",
                          "applicationCryptogramm", "cid", "tsi", "cvmr", "iad", "upn", "atc", "aip", "tt",
@@ -18,7 +19,7 @@ public class TerminalData implements PosXMLDomainObject {
 
   @PosXMLField(mandatory = true, length = 8, name = "ID")
   private String id;
-  @PosXMLField(mandatory = true, length = 16)
+  @PosXMLField(mandatory = true, length = 64)
   private String serNo;
   @PosXMLField(mandatory = true, length = 40)
   private String name;

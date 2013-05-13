@@ -5,7 +5,8 @@ package eu.wm.posxml.domain;
  * 
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
-public class FinishTransactionRequest implements PosXMLRequest {
+public class FinishTransactionRequest extends AbstractRequest {
+  @Override
   public String[] getFieldOrder() {
     return new String[] { "transactionID", "transactionSTAN", "finishAmount", "amount", "tipAmount", "currencyName",
                          "printReceipt", "returnReceipts" };

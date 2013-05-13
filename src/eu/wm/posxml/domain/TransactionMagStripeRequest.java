@@ -10,6 +10,7 @@ public class TransactionMagStripeRequest extends AbstractTransactionRequest {
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
+  @Override
   public String[] getFieldOrder() {
     return new String[] { "pan", "expires", "serviceCode", "amount", "currencyName", "transactionID",
                          "preAuthorisation", "attendantID", "printReceipt", "returnReceipts", "cardPresent",

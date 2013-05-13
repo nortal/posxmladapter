@@ -10,6 +10,7 @@ public class ReadCardRequest implements PosXMLRequest {
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
+  @Override
   public String[] getFieldOrder() {
     return new String[] { "timeout", "language", "amount", "currencyName" };
   }
@@ -53,5 +54,10 @@ public class ReadCardRequest implements PosXMLRequest {
 
   public void setCurrencyName(String currencyName) {
     this.currencyName = currencyName;
+  }
+
+  @Override
+  public String validate() {
+    return null;
   }
 }

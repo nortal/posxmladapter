@@ -12,10 +12,11 @@ public class TransactionData implements PosXMLDomainObject {
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
+  @Override
   public String[] getFieldOrder() {
     return new String[] { "transactionID", "amount", "additionalAmount", "currencyName", "datetime", "datetimeRev",
                          "stan", "stanRev", "type", "cardAction", "authorizationNo", "hostAnswer", "secAmount",
-                         "secAdditionalAmount", "secCurrencyName", "signatureRequired", "pinVerified" };
+                         "secAdditionalAmount", "secCurrencyName", "signatureRequired", "pinVerified", "transactionCompletion" };
   }
 
   @PosXMLField(mandatory = true, length = 16)
@@ -40,6 +41,7 @@ public class TransactionData implements PosXMLDomainObject {
   private String cardAction;
   @PosXMLField(mandatory = true, length = 6)
   private String authorizationNo;
+  @PosXMLField(length = 3)
   private String hostAnswer;
   @PosXMLField(mandatory = true, length = 12)
   private Integer secAmount;
@@ -51,6 +53,8 @@ public class TransactionData implements PosXMLDomainObject {
   private Integer signatureRequired;
   @PosXMLField(name = "PINVerified", mandatory = true, length = 1)
   private Integer pinVerified;
+  @PosXMLField(length=64)
+  private String transactionCompletion;
 
   public String getTransactionID() {
     return transactionID;
@@ -186,6 +190,14 @@ public class TransactionData implements PosXMLDomainObject {
 
   public void setPinVerified(Integer pinVerified) {
     this.pinVerified = pinVerified;
+  }
+
+  public String getTransactionCompletion() {
+    return transactionCompletion;
+  }
+
+  public void setTransactionCompletion(String transactionCompletion) {
+    this.transactionCompletion = transactionCompletion;
   }
 
 }

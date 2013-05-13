@@ -4,11 +4,12 @@ package eu.wm.posxml.domain;
  * ReadIDCardRequest XML element
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
-public class ReadIDCardRequest implements PosXMLRequest {
+public class ReadIDCardRequest extends AbstractRequest {
 
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
+  @Override
   public String[] getFieldOrder() {
     return new String[]{"timeout","language","verifyPIN"};
   }

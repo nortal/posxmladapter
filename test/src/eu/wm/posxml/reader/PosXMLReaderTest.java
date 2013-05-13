@@ -3,6 +3,7 @@ package eu.wm.posxml.reader;
 import eu.wm.posxml.composer.PosXMLComposer;
 import eu.wm.posxml.domain.Card;
 import eu.wm.posxml.domain.PosXMLDomainObject;
+import eu.wm.posxml.domain.TransactionData;
 import eu.wm.posxml.domain.TransactionResponse;
 import java.util.Calendar;
 import org.dom4j.DocumentException;
@@ -154,5 +155,45 @@ public class PosXMLReaderTest {
     Assert.assertEquals(0, cal.get(Calendar.MONTH));
     Assert.assertEquals(1, cal.get(Calendar.DAY_OF_MONTH));
     Assert.assertEquals(Integer.valueOf(1), transactionResponse.getTransactionData().getPinVerified());
+  }
+  
+  @Test
+  public void testTransactionError() throws DocumentException {
+    String response = 
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+        "<PosXML version=\"6.0.2\">\n" +
+        "  <TransactionResponse>\n" +
+        "    <ReturnCode>0</ReturnCode>\n" +
+        "    <Reason></Reason>\n" +
+        "    <TransactionData>\n" +
+        "      <Type>T1</Type>\n" +
+        "      <CardAction>2</CardAction>\n" +
+        "      <AuthorizationNo>      </AuthorizationNo>\n" +
+        "      <HostAnswer>---</HostAnswer>\n" +
+        "      <SignatureRequired>0</SignatureRequired>\n" +
+        "      <PINVerified>0</PINVerified>\n" +
+        "      <TransactionCompletion>NOTIFICATION</TransactionCompletion>\n" +
+        "    </TransactionData>\n" +
+        "    <CardData>\n" +
+        "      <Expires>**/**</Expires>\n" +
+        "    </CardData>\n" +
+        "    <TerminalData>\n" +
+        "      <SerNo>ICT220-01T1003F-12036CT71263522 IPP320-71134136</SerNo>\n" +
+        "      <ID>ICT00210</ID>\n" +
+        "      <Name>Hambapolikliinik II korrus</Name>\n" +
+        "      <Address>Raekoja plats 6,51003 Tartu EST</Address>\n" +
+        "      <MerchantRegNo>90001478</MerchantRegNo>\n" +
+        "      <PayDesk>122</PayDesk>\n" +
+        "      <PrinterStatus>2</PrinterStatus>\n" +
+        "    </TerminalData>\n" +
+        "  </TransactionResponse>\n" +
+        "</PosXML>";
+    TransactionResponse transactionResponse = (TransactionResponse) PosXMLReader.readXml(response);
+    Assert.assertNotNull(transactionResponse);
+    TransactionData transactionData = transactionResponse.getTransactionData();
+    Assert.assertNotNull(transactionData);
+    Assert.assertEquals("NOTIFICATION", transactionData.getTransactionCompletion());
+    
+
   }
 }

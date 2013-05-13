@@ -5,5 +5,9 @@ package eu.wm.posxml.domain;
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
 public interface PosXMLRequest extends PosXMLDomainObject {
-  // marker
+
+  /**
+   * Object specific validation rules
+   */
+  public String validate();
 }

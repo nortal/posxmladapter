@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.Element;
 import org.dom4j.Node;
 
 /**
@@ -48,8 +49,16 @@ public final class PosXMLReader {
     if(children.isEmpty()) {
       throw new IllegalArgumentException("Missing child node under " + doc.getRootElement().getName());
     }
-    Node root = children.get(0);
-    
+    Node root = null;
+    for(Node node: children) {
+      if(node instanceof Element) {
+        root = node;
+        break;
+      }
+    }
+    if(root == null) {
+      throw new IllegalArgumentException("Missing child node under " + doc.getRootElement().getName());
+    }
     // match root element and root object
     String className = PosXMLDomainObject.class.getPackage().getName() + "." + root.getName(); 
     Class<? extends PosXMLDomainObject> rootClass = null; 

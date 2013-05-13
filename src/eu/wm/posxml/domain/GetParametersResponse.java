@@ -9,6 +9,7 @@ import java.math.BigDecimal;
  */
 public class GetParametersResponse implements PosXMLResponse {
 
+  @Override
   public String[] getFieldOrder() {
     return new String[] { "showLogo", "showText1", "showText2", "showText3", "merchantInputTimeout", "waitCardTimeout",
                          "pinInputTimeout", "customerInputTimeout", "magNotUsed", "dukptInitialized", "emvDukptUsed",
@@ -685,5 +686,9 @@ public class GetParametersResponse implements PosXMLResponse {
   }
   public void setHostPhoneNumber(String hostPhoneNumber) {
     this.hostPhoneNumber = hostPhoneNumber;
+  }
+  @Override
+  public String validate() {
+    return null;
   }
 }

@@ -5,7 +5,7 @@ package eu.wm.posxml.domain;
  * 
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
-public abstract class AbstractTransactionRequest implements PosXMLRequest {
+public abstract class AbstractTransactionRequest extends AbstractRequest {
 
   @PosXMLField(length = 12, mandatory = true)
   private Integer amount;

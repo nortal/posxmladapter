@@ -10,6 +10,7 @@ public class RefundTransactionRequest implements PosXMLRequest {
   /**
    * @see eu.wm.posxml.domain.PosXMLDomainObject#getFieldOrder()
    */
+  @Override
   public String[] getFieldOrder() {
     return new String[] { "transactionID", "transactionSTAN", "printReceipt", "returnReceipts" };
   }
@@ -53,6 +54,11 @@ public class RefundTransactionRequest implements PosXMLRequest {
 
   public void setReturnReceipts(Integer returnReceipts) {
     this.returnReceipts = returnReceipts;
+  }
+
+  @Override
+  public String validate() {
+    return null;
   }
 
 }

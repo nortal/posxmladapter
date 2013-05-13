@@ -7,6 +7,7 @@ package eu.wm.posxml.domain;
  */
 public class Card implements PosXMLDomainObject {
 
+  @Override
   public String[] getFieldOrder() {
     return new String[]{"pan","cardName","expires","serviceCode"};
   }

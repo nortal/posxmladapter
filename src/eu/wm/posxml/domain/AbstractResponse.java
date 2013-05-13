@@ -17,4 +17,8 @@ public abstract class AbstractResponse implements PosXMLResponse {
     return returnCode;
   }
 
+  @Override
+  public String validate() {
+    return null;
+  }
 }
