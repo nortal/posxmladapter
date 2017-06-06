@@ -46,10 +46,8 @@
    <rule ref="rulesets/design.xml/UncommentedEmptyConstructor"/>
    <rule ref="rulesets/design.xml/AvoidConstantsInterface"/>
    <rule ref="rulesets/design.xml/UnsynchronizedStaticDateFormatter"/>
-   <rule ref="rulesets/design.xml/PreserveStackTrace"/>
    <rule ref="rulesets/design.xml/UseCollectionIsEmpty"/>
    <rule ref="rulesets/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
-   <rule ref="rulesets/design.xml/EmptyMethodInAbstractClassShouldBeAbstract"/>
    <rule ref="rulesets/design.xml/SingularField"/>
    <rule ref="rulesets/design.xml/ReturnEmptyArrayRatherThanNull"/>
    <rule ref="rulesets/design.xml/AbstractClassWithoutAnyMethod"/>
@@ -71,7 +69,12 @@
    <rule ref="rulesets/logging-java.xml/LoggerIsNotStaticFinal"/>
    <rule ref="rulesets/logging-java.xml/SystemPrintln"/>
    <rule ref="rulesets/logging-java.xml/AvoidPrintStackTrace"/>
-   <rule ref="rulesets/strings.xml/AvoidDuplicateLiterals"/>
+   <rule ref="rulesets/strings.xml/AvoidDuplicateLiterals">
+   	<properties>
+   	  <property name="threshold" value="10" />
+   	  <property name="skipAnnotations" value="true" />
+		 </properties>
+   </rule>
    <rule ref="rulesets/strings.xml/StringInstantiation"/>
    <rule ref="rulesets/strings.xml/StringToString"/>
    <rule ref="rulesets/strings.xml/InefficientStringBuffering"/>
@@ -111,11 +114,10 @@
    <rule ref="rulesets/j2ee.xml/DoNotUseThreads"/>
    <rule ref="rulesets/optimizations.xml/UseArrayListInsteadOfVector"/>
    <rule ref="rulesets/optimizations.xml/SimplifyStartsWith"/>
-   <rule ref="rulesets/optimizations.xml/UseStringBufferForStringAppends"/>
    <rule ref="rulesets/optimizations.xml/UseArraysAsList"/>
    <rule ref="rulesets/optimizations.xml/AvoidArrayLoops"/>
    <rule ref="rulesets/optimizations.xml/UnnecessaryWrapperObjectCreation"/>
-   <!--rule ref="rulesets/optimizations.xml/AddEmptyString"/-->
+   <rule ref="rulesets/optimizations.xml/AddEmptyString"/>
    <rule ref="rulesets/basic.xml/EmptyCatchBlock"/>
    <rule ref="rulesets/basic.xml/EmptyIfStmt"/>
    <rule ref="rulesets/basic.xml/EmptyWhileStmt"/>
@@ -136,7 +138,6 @@
    <rule ref="rulesets/basic.xml/BooleanInstantiation"/>
    <rule ref="rulesets/basic.xml/UnnecessaryFinalModifier"/>
    <rule ref="rulesets/basic.xml/CollapsibleIfStatements"/>
-   <rule ref="rulesets/basic.xml/UselessOverridingMethod"/>
    <rule ref="rulesets/basic.xml/ClassCastExceptionWithToArray"/>
    <rule ref="rulesets/basic.xml/AvoidDecimalLiteralsInBigDecimalConstructor"/>
    <rule ref="rulesets/basic.xml/UselessOperationOnImmutable"/>
@@ -151,9 +152,7 @@
    <rule ref="rulesets/basic.xml/AvoidMultipleUnaryOperators"/>
    <rule ref="rulesets/basic.xml/EmptyInitializer"/>
    <rule ref="rulesets/sunsecure.xml/MethodReturnsInternalArray"/>
-   <rule ref="rulesets/sunsecure.xml/ArrayIsStoredDirectly"/>
    <rule ref="rulesets/coupling.xml/CouplingBetweenObjects"/>
-   <rule ref="rulesets/coupling.xml/ExcessiveImports"/>
    <rule ref="rulesets/coupling.xml/LooseCoupling"/>
    <rule ref="rulesets/imports.xml/DuplicateImports"/>
    <rule ref="rulesets/imports.xml/DontImportJavaLang"/>
@@ -171,14 +170,12 @@
    <rule ref="rulesets/junit.xml/UseAssertNullInsteadOfAssertTrue"/>
    <rule ref="rulesets/junit.xml/SimplifyBooleanAssertion"/>
    <rule ref="rulesets/controversial.xml/UnnecessaryConstructor"/>
-   <rule ref="rulesets/controversial.xml/NullAssignment"/>
    <rule ref="rulesets/controversial.xml/AssignmentInOperand"/>
    <rule ref="rulesets/controversial.xml/DontImportSun"/>
    <rule ref="rulesets/controversial.xml/SuspiciousOctalEscape"/>
    <rule ref="rulesets/controversial.xml/UnnecessaryParentheses"/>
    <rule ref="rulesets/controversial.xml/DefaultPackage"/>
    <rule ref="rulesets/controversial.xml/BooleanInversion"/>
-   <rule ref="rulesets/controversial.xml/AvoidFinalLocalVariable"/>
    <rule ref="rulesets/controversial.xml/AvoidUsingShortType"/>
    <rule ref="rulesets/controversial.xml/AvoidUsingVolatile"/>
    <rule ref="rulesets/controversial.xml/AvoidUsingNativeCode"/>
@@ -186,7 +183,7 @@
    <rule ref="rulesets/controversial.xml/DoNotCallGarbageCollectionExplicitly"/>
    <rule ref="rulesets/naming.xml/LongVariable">
    	 <properties>
-   	  <property name="minimum" value="30" />
+   	  <property name="minimum" value="50" />
 		 </properties>  		
    </rule>
    <rule ref="rulesets/naming.xml/ShortMethodName"/>
@@ -198,27 +195,21 @@
    <rule ref="rulesets/naming.xml/SuspiciousHashcodeMethodName"/>
    <rule ref="rulesets/naming.xml/SuspiciousConstantFieldName"/>
    <rule ref="rulesets/naming.xml/SuspiciousEqualsMethodName"/>
-   <rule ref="rulesets/naming.xml/AvoidFieldNameMatchingTypeName"/>
-   <rule ref="rulesets/naming.xml/AvoidFieldNameMatchingMethodName"/>
    <rule ref="rulesets/naming.xml/NoPackage"/>
-   <rule ref="rulesets/naming.xml/PackageCase"/>
    <rule ref="rulesets/naming.xml/MisleadingVariableName"/>
    <rule ref="rulesets/naming.xml/BooleanGetMethodName"/>
    <rule ref="rulesets/codesize.xml/NPathComplexity"/>
    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength"/>
    <rule ref="rulesets/codesize.xml/ExcessiveParameterList"/>
    <rule ref="rulesets/codesize.xml/ExcessiveClassLength"/>
-   <rule ref="rulesets/codesize.xml/CyclomaticComplexity"/>
-   <rule ref="rulesets/codesize.xml/ExcessivePublicCount"/>
-   <rule ref="rulesets/codesize.xml/TooManyFields"/>
+   <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+    <properties>
+      <property name="showClassesComplexity" value="false" />
+    </properties>
+   </rule>
    <rule ref="rulesets/codesize.xml/NcssMethodCount"/>
    <rule ref="rulesets/codesize.xml/NcssTypeCount"/>
    <rule ref="rulesets/codesize.xml/NcssConstructorCount"/>
-   <rule ref="rulesets/codesize.xml/TooManyMethods">
-    <properties>
-   	  <property name="maxmethods" value="25" />
-		 </properties> 
-	 </rule>
    <rule ref="rulesets/finalizers.xml/EmptyFinalizer"/>
    <rule ref="rulesets/finalizers.xml/FinalizeOnlyCallsSuperFinalize"/>
    <rule ref="rulesets/finalizers.xml/FinalizeOverloaded"/>
@@ -230,4 +221,9 @@
    <rule ref="rulesets/clone.xml/ProperCloneImplementation"/>
    <rule ref="rulesets/clone.xml/CloneThrowsCloneNotSupportedException"/>
    <rule ref="rulesets/clone.xml/CloneMethodMustImplementCloneable"/>
+   
+   <!--rule ref="rulesets/sunsecure.xml/ArrayIsStoredDirectly"/-->
+   <!--rule ref="rulesets/coupling.xml/ExcessiveImports"/-->
+   <!--rule ref="rulesets/optimizations.xml/UseStringBufferForStringAppends"/ -->
+   <!-- rule ref="rulesets/controversial.xml/AvoidFinalLocalVariable"/ -->
 </ruleset>

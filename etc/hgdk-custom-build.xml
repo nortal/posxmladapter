@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Healthcare Hgdk custom build">
+
+  <property name="hgdk.personal.properties" value="${basedir}/hgdk-personal.properties" />
+  <property file="${hgdk.personal.properties}" prefix="hgdk" />
+       
+  <dirname property="current-dir-full-name" file="build.xml" />
+  <basename property="current-dir-name" file="${current-dir-full-name}"/> 
+  
+	<target name="prepare-merge">
+		<copy todir="${hgdk.mergeDirectory}/${current-dir-name}" overwrite="false">
+			<fileset file="personal.properties" />
+		</copy>
+	</target>
+
+  <taskdef resource="net/sf/antcontrib/antlib.xml">
+    <classpath>
+      <pathelement path="lib/static/ant-contrib-0.6.jar" />
+    </classpath>
+  </taskdef>
+
+  <target name="get-current-version"
+          depends="current-version"
+          description="get base version of the code by looking at Hg tags (via Hgdk)">
+    <propertyregex property="module.version" input="${currentVersion}" regexp="ver-(.*)" replace="\1" />
+    <echo>CURRENT_BASE_VERSION=${module.version}</echo>
+  </target>
+
+</project>

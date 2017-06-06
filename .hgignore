@@ -1,0 +1,5 @@
+syntax: glob
+build
+hgdk-personal.properties
+lib/test
+test/reports

@@ -3,8 +3,11 @@
 <!--		<Or>-->
 <!--			<Bug code="DLS,Dm,IMA,SnVI,EI,EI2,ST,NS" />-->
 <!--			<Bug pattern="BC_UNCONFIRMED_CAST" />-->
-<!--			<Bug pattern="EI_EXPOSE_REP2" />-->
-<!--			<Bug pattern="EI_EXPOSE_REP" />-->
+			<Bug pattern="EI_EXPOSE_REP2" />
+			<Bug pattern="EI_EXPOSE_REP" />
+      <Bug pattern="SE_NO_SERIALVERSIONID" />
+      <Bug pattern="SE_INNER_CLASS" />
+      <Bug pattern="EQ_DOESNT_OVERRIDE_EQUALS" />
 <!--			<Bug pattern="SE_BAD_FIELD" />-->
 <!--		</Or>-->
 <!--	</Match>-->
