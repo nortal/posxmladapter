@@ -1,2 +1,10 @@
-/build/
-/bin/
+.gradle
+build
+bin
+.idea
+classes
+gradle.properties
+.project
+.settings
+.classpath
+.metadata
