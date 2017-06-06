@@ -1,4 +1,4 @@
-package eu.wm.posxml.service;
+package eu.wm.posxml.api;
 
 import eu.wm.posxml.domain.PosXMLResponse;
 
