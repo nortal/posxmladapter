@@ -3,10 +3,6 @@ package eu.wm.posxml.composer;
 import eu.wm.posxml.domain.PosXMLDomainObject;
 import eu.wm.posxml.domain.PosXMLField;
 import eu.wm.posxml.helper.DomainObjectHelper;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -14,18 +10,22 @@ import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Compose XML messages from PosXML domain objects
  * 
  * @author Tanel Käär (tanelk@webmedia.ee)
  */
 public final class PosXMLComposer {
+  public static final String POSXML_VERSION = "7.2.0";
 
   private PosXMLComposer() {
     // to avoid instance init
   }
 
-  public static final String POSXML_VERSION = "6.0.2";
 
   /**
    * Convert the domain object into dom4j document

@@ -43,7 +43,7 @@ public class PosXMLQueryServiceTest {
     readCardRequest.setTimeout(1000);
     
     PowerMock.mockStatic(PaymentTerminalCommunicator.class);
-    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><ReadCardRequest><Timeout>1000</Timeout></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><Error><ReturnCode>123</ReturnCode></Error></PosXML>");
+    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><ReadCardRequest><Timeout>1000</Timeout></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><Error><ReturnCode>123</ReturnCode></Error></PosXML>");
     PowerMock.replayAll();
     QueryResult result = service.query(readCardRequest, "url");
     Assert.assertNotNull(result);
@@ -66,7 +66,7 @@ public class PosXMLQueryServiceTest {
   @Test
   public void queryTransportError() {
     PowerMock.mockStatic(PaymentTerminalCommunicator.class);
-    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andThrow(new RuntimeException("message"));
+    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andThrow(new RuntimeException("message"));
     PowerMock.replayAll();
     QueryResult result = service.query(new ReadCardRequest(), "url");
     Assert.assertNotNull(result);
@@ -82,7 +82,7 @@ public class PosXMLQueryServiceTest {
   @Test
   public void queryResponseParseError() {
     PowerMock.mockStatic(PaymentTerminalCommunicator.class);
-    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("someNonXmlResponse");
+    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("someNonXmlResponse");
     PowerMock.replayAll();
     QueryResult result = service.query(new ReadCardRequest(), "url");
     Assert.assertNotNull(result);
@@ -98,7 +98,7 @@ public class PosXMLQueryServiceTest {
   @Test
   public void queryResponseParseErrorWrongType() {
     PowerMock.mockStatic(PaymentTerminalCommunicator.class);
-    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><Card></Card></PosXML>");
+    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><Card></Card></PosXML>");
     PowerMock.replayAll();
     QueryResult result = service.query(new ReadCardRequest(), "url");
     Assert.assertNotNull(result);
@@ -114,8 +114,8 @@ public class PosXMLQueryServiceTest {
   @Test
   public void queryResponseValidateError() {
     PowerMock.mockStatic(PaymentTerminalCommunicator.class);
-    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><TransactionResponse></TransactionResponse></PosXML>");
-    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><TransactionResponse></TransactionResponse></PosXML>");
+    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><TransactionResponse></TransactionResponse></PosXML>");
+    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><TransactionResponse></TransactionResponse></PosXML>");
     PowerMock.replayAll();
     QueryResult result = service.query(new ReadCardRequest(), "url");
     Assert.assertNotNull(result);
@@ -137,7 +137,7 @@ public class PosXMLQueryServiceTest {
   @Test
   public void queryResponseParseErrorMessage() {
     PowerMock.mockStatic(PaymentTerminalCommunicator.class);
-    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"6.0.2\"><Error><ReturnCode>123</ReturnCode></Error></PosXML>");
+    EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><ReadCardRequest></ReadCardRequest></PosXML>", "url", 10000, 60000)).andReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<PosXML version=\"7.2.0\"><Error><ReturnCode>123</ReturnCode></Error></PosXML>");
     PowerMock.replayAll();
     QueryResult result = service.query(new ReadCardRequest(), "url");
     Assert.assertNotNull(result);
@@ -154,7 +154,7 @@ public class PosXMLQueryServiceTest {
   public void invalidTransactionTest() {
     PowerMock.mockStatic(PaymentTerminalCommunicator.class);
     EasyMock.expect(PaymentTerminalCommunicator.sendMessage("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-    		"<PosXML version=\"6.0.2\">" +
+    		"<PosXML version=\"7.2.0\">" +
     		"<TransactionRequest>" +
     		"<Amount>3225</Amount>" +
     		"<CurrencyName>EUR</CurrencyName>" +
@@ -168,7 +168,7 @@ public class PosXMLQueryServiceTest {
                                                             10000,
                                                             60000)).andReturn(
                                                                               "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" +
-                                                                              "<PosXML version=\"6.0.2\">" +
+                                                                              "<PosXML version=\"7.2.0\">" +
                                                                               "<TransactionResponse>" +
                                                                               "<ReturnCode>0</ReturnCode>" +
                                                                               "<Reason></Reason>" +
